@@ -10,7 +10,7 @@ const UserDetailController = async (req, res) => {
     console.log("UserId:", userId);
     
     // Assuming userId is stored as `_id` in the database
-    const user = await UserModel.findById({ id: userId });
+    const user = await UserModel.findById(userId)
 
     if (!user) {
       return res.status(404).json({ errors: "User not found" });

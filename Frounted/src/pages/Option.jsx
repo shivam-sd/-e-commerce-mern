@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import { IoManSharp } from "react-icons/io5";
 
+
 const Option = () => {
+
   return (
       <div className="bg-gray-400 w-full h-screen">
       <div className="container mx-auto bg-[#FFF2AF] w-full h-screen flex items-center flex-col">

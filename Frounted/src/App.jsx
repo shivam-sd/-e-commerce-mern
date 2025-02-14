@@ -12,9 +12,7 @@ import axios from "axios";
 const App = () => {
   const fetchUserDetail = async () => {
    try{
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/users/details` , {
-      withCredentials:true
-    });
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/users/details`);
     const data = response.data;
     console.log("User Detail -> ",data);
    }catch(error){

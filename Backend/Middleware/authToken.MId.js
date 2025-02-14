@@ -2,7 +2,8 @@ const jwt = require("jsonwebtoken");
 
 const authToken = (req, res, next) => {
   try {
-    const token = req.cookies;
+    const token = req.cookies.token;
+    // console.log("req",req)
     console.log("token", token);
 
     if (!token) {
@@ -15,8 +16,8 @@ const authToken = (req, res, next) => {
     const decode = jwt.verify(token, process.env.SECRET_KEY);
 
     console.log("Decoded Token:", decode);
-
-    req.userId = decode.id;
+    
+    req.userId = decode.id || decode.userId;
     next();
   } catch (error) {
     res.status(500).json({
