@@ -36,7 +36,7 @@ const UserRegister = async (req, res) => {
 
 const UserLogin = async (req, res) => {
   const { email, password } = req.body;
-  
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -51,24 +51,34 @@ const UserLogin = async (req, res) => {
 
     // Compare hashed password
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid ) {
+    if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid Credentials" });
     }
 
     // Generate JWT token
-    const token = jwt.sign({ userId : user._id }, process.env.SECRET_KEY, { expiresIn: "7d" });
+    const token = jwt.sign({userId: user._id }, process.env.SECRET_KEY, { expiresIn: "7d" });
 
-    // Set cookie with secure options
+    // Set cookie with correct options
+    const tokenOption = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production" // Secure only in production
+    };
 
-    res.cookie("token", token);
+    res.cookie("token", token, tokenOption);
     
+    return res.status(200).json({
+      message: "Login Successful",
+      success: true,
+      data: user,
+      token: token
+    });
 
-    res.status(200).json({ message: "User login successfully", user, token });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Error in User Login" });
   }
 };
+
 
 
 module.exports = {

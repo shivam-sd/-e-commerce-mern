@@ -23,7 +23,7 @@ const Login = () => {
           const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/login` , LoginData);
           const data = response.data;
           console.log(data);
-          // localStorage.setItem("UserToken" , JSON.stringify(data.token));
+          localStorage.setItem("UserToken" , JSON.stringify(data.token));
           toast.success(`${data.message}`, {
             position: "top-center",
             autoClose: 5000,
@@ -57,7 +57,7 @@ const Login = () => {
         }
     }
   return (
-    <div className="mx-auto container">
+    <div className="mx-auto container h-screen flex flex-col justify-between">
       <Header />
       <div className="forms  lg:h-auto md:h-auto lg:flex lg:items-center lg:justify-center mt-16">
         <form onSubmit={handleFormData} className="border border-gray-400 h-auto p-4 flex flex-col rounded-sm relative">

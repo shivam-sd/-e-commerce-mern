@@ -11,8 +11,13 @@ import axios from "axios";
 
 const App = () => {
   const fetchUserDetail = async () => {
+    const token = localStorage.getItem("UserToken");
+    if(!token){
+      return console.log("Token Not Found");
+    }
    try{
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/users/details`);
+
     const data = response.data;
     console.log("User Detail -> ",data);
    }catch(error){
@@ -25,7 +30,7 @@ const App = () => {
 
   return (
     <div>
-      <Context.Provider value={fetchUserDetail}>
+      <Context.Provider value={{fetchUserDetail}}>
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />

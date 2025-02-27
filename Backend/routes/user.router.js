@@ -10,7 +10,7 @@ const {
 
 router.post(
   "/register",
-  [
+  [ 
     body("fullname").isLength({ min: 3 }).withMessage("Enter FullName!"),
     body("email").isEmail().withMessage("Invalid Email!"),
     body("password")
